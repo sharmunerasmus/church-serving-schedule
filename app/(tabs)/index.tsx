@@ -57,6 +57,24 @@ const Monday25thPMRoster = {
 
 export default function HomeScreen() {const [volunteerName, setVolunteerName] = useState('');
   const [draftName, setDraftName] = useState('');
+  const [sunday24AM, setSunday24AM] = useState(Sunday24thAMRoster);
+  function claimRole(roleName: string) {
+    setSunday24AM({
+      ...sunday24AM,
+      roster: sunday24AM.roster.map((item) => {
+        if (item.role !== roleName) {
+          return item;
+        }
+        if (item.name === volunteerName) {
+          return { ...item, name: '' };
+        }
+        if (!item.name || item.name === '?' || item.name === 'N/A') {
+          return { ...item, name: volunteerName };
+        }
+        return item;
+      }),
+    });
+  }  
   return (
     <>
       <Modal visible={!volunteerName} transparent animationType="fade">
@@ -101,19 +119,24 @@ export default function HomeScreen() {const [volunteerName, setVolunteerName] = 
         Below is the schedule for the upcoming services. Please check in with your role lead if you need to swap shifts.
       </ThemedText>
 
-      <Collapsible title={Sunday24thAMRoster.Title}>
+      <Collapsible title={sunday24AM.Title}>
       <ThemedText>
-      Call Time: <ThemedText type="defaultSemiBold">{Sunday24thAMRoster.CallTime}</ThemedText>
+      Call Time: <ThemedText type="defaultSemiBold">{sunday24AM.CallTime}</ThemedText>
       </ThemedText>
       <ThemedText>
-      Start Time: <ThemedText type="defaultSemiBold">{Sunday24thAMRoster.StartTime}</ThemedText>
+      Start Time: <ThemedText type="defaultSemiBold">{sunday24AM.StartTime}</ThemedText>
       </ThemedText>
             <ThemedView style={styles.stepContainer}>
         </ThemedView>
-      {Sunday24thAMRoster.roster.map((item) => (
-        <ThemedText key={item.role}>
-          {item.role}: <ThemedText type="defaultSemiBold">{item.name}</ThemedText>
+      {sunday24AM.roster.map((item) => (
+        <Pressable key={item.role} onPress={() => claimRole(item.role)}>
+        <ThemedText>
+           {item.role}:{' '}
+         <ThemedText type="defaultSemiBold">
+          {item.name || 'Open'}
+         </ThemedText>
         </ThemedText>
+        </Pressable>
       ))}
       </Collapsible>
 
