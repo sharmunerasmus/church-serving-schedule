@@ -9,6 +9,7 @@ import { Collapsible } from '@/components/ui/collapsible';
 
 const Sunday24thAMRoster = {
   Title: 'Sunday 24th AM',
+  dateTime: new Date('2026-05-24T07:30:00'),
   CallTime: '7:30am',
   StartTime: '9:00am',
   roster: [
@@ -25,6 +26,7 @@ const Sunday24thAMRoster = {
 
 const Sunday24thPMRoster = {
   Title: 'Sunday 24th PM',
+  dateTime: new Date('2026-05-24T16:30:00'),
   CallTime: '4:30pm',
   StartTime: '6:00pm',
   roster: [
@@ -41,6 +43,7 @@ const Sunday24thPMRoster = {
 
 const Monday25thPMRoster = {
   Title: 'Monday 25th PM',
+  dateTime: new Date('2026-05-25T18:00:00'),
   CallTime: '6:00pm',
   StartTime: '6:30pm',
   roster: [
@@ -58,6 +61,8 @@ const Monday25thPMRoster = {
 export default function HomeScreen() {const [volunteerName, setVolunteerName] = useState('');
   const [draftName, setDraftName] = useState('');
   const [sunday24AM, setSunday24AM] = useState(Sunday24thAMRoster);
+    const events = [sunday24AM, Sunday24thPMRoster, Monday25thPMRoster];
+  const nextEvent = events.find((event) => event.dateTime > new Date());
   function claimRole(roleName: string) {
     setSunday24AM({
       ...sunday24AM,
@@ -119,59 +124,24 @@ export default function HomeScreen() {const [volunteerName, setVolunteerName] = 
         Below is the schedule for the upcoming services. Please check in with your role lead if you need to swap shifts.
       </ThemedText>
 
-      <Collapsible title={sunday24AM.Title}>
-      <ThemedText>
-      Call Time: <ThemedText type="defaultSemiBold">{sunday24AM.CallTime}</ThemedText>
-      </ThemedText>
-      <ThemedText>
-      Start Time: <ThemedText type="defaultSemiBold">{sunday24AM.StartTime}</ThemedText>
-      </ThemedText>
-            <ThemedView style={styles.stepContainer}>
-        </ThemedView>
-      {sunday24AM.roster.map((item) => (
-        <Pressable key={item.role} onPress={() => claimRole(item.role)}>
-        <ThemedText>
-           {item.role}:{' '}
-         <ThemedText type="defaultSemiBold">
-          {item.name || 'Open'}
-         </ThemedText>
-        </ThemedText>
-        </Pressable>
-      ))}
-      </Collapsible>
+{nextEvent && (
+  <Collapsible title={nextEvent.Title}>
+    <ThemedText>
+      Call Time: <ThemedText type="defaultSemiBold">{nextEvent.CallTime}</ThemedText>
+    </ThemedText>
 
-      <Collapsible title={Sunday24thPMRoster.Title}>
-      <ThemedText>
-      Call Time: <ThemedText type="defaultSemiBold">{Sunday24thPMRoster.CallTime}</ThemedText>
-      </ThemedText>
-      <ThemedText>
-      Start Time: <ThemedText type="defaultSemiBold">{Sunday24thPMRoster.StartTime}</ThemedText>
-      </ThemedText>
-      <ThemedView style={styles.stepContainer}>
-        </ThemedView>
-      {Sunday24thPMRoster.roster.map((item) => (
-        <ThemedText key={item.role}>
-          {item.role}: <ThemedText type="defaultSemiBold">{item.name}</ThemedText>
-        </ThemedText>
-      ))}
-      </Collapsible>
+    <ThemedText>
+      Start Time: <ThemedText type="defaultSemiBold">{nextEvent.StartTime}</ThemedText>
+    </ThemedText>
 
-      <Collapsible title={Monday25thPMRoster.Title}>
-      <ThemedText>
-      Call Time: <ThemedText type="defaultSemiBold">{Monday25thPMRoster.CallTime}</ThemedText>
+    {nextEvent.roster.map((item) => (
+      <ThemedText key={item.role}>
+        {item.role}:{' '}
+        <ThemedText type="defaultSemiBold">{item.name || 'Open'}</ThemedText>
       </ThemedText>
-      <ThemedText>
-      Start Time: <ThemedText type="defaultSemiBold">{Monday25thPMRoster.StartTime}</ThemedText>
-      </ThemedText>
-      <ThemedView style={styles.stepContainer}>
-        </ThemedView>
-      {Monday25thPMRoster.roster.map((item) => (
-        <ThemedText key={item.role}>
-          {item.role}: <ThemedText type="defaultSemiBold">{item.name}</ThemedText>
-        </ThemedText>
-      ))}
-      </Collapsible>
-
+   ))}
+  </Collapsible>
+)}
     </ParallaxScrollView>
     </>
   );
