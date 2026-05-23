@@ -1,5 +1,6 @@
 import { Image } from 'expo-image';
-import { StyleSheet } from 'react-native';
+import { useState } from 'react';
+import { Modal, Pressable, StyleSheet, TextInput } from 'react-native';
 
 import ParallaxScrollView from '@/components/parallax-scroll-view';
 import { ThemedText } from '@/components/themed-text';
@@ -54,8 +55,33 @@ const Monday25thPMRoster = {
 ],
 }
 
-export default function HomeScreen() {
+export default function HomeScreen() {const [volunteerName, setVolunteerName] = useState('');
+  const [draftName, setDraftName] = useState('');
   return (
+    <>
+      <Modal visible={!volunteerName} transparent animationType="fade">
+  <ThemedView style={styles.modalBackdrop}>
+    <ThemedView style={styles.modalCard}>
+      <ThemedText type="subtitle">Welcome Volunteer</ThemedText>
+
+      <TextInput
+        placeholder="Volunteer Name"
+        placeholderTextColor="#999"
+        value={draftName}
+        onChangeText={setDraftName}
+        style={styles.input}
+      />
+
+      <Pressable
+        style={styles.primaryButton}
+        onPress={() => setVolunteerName(draftName.trim())}
+      >
+        <ThemedText type="defaultSemiBold">Continue</ThemedText>
+      </Pressable>
+    </ThemedView>
+  </ThemedView>
+</Modal>
+
     <ParallaxScrollView
       headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
       headerImage={
@@ -68,6 +94,13 @@ export default function HomeScreen() {
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">Media Serving Schedule</ThemedText>
       </ThemedView>
+      <ThemedText>
+        Hello <ThemedText type="defaultSemiBold">{volunteerName}</ThemedText>
+      </ThemedText>
+      <ThemedText> 
+        Below is the schedule for the upcoming services. Please check in with your role lead if you need to swap shifts.
+      </ThemedText>
+
       <Collapsible title={Sunday24thAMRoster.Title}>
       <ThemedText>
       Call Time: <ThemedText type="defaultSemiBold">{Sunday24thAMRoster.CallTime}</ThemedText>
@@ -83,6 +116,7 @@ export default function HomeScreen() {
         </ThemedText>
       ))}
       </Collapsible>
+
       <Collapsible title={Sunday24thPMRoster.Title}>
       <ThemedText>
       Call Time: <ThemedText type="defaultSemiBold">{Sunday24thPMRoster.CallTime}</ThemedText>
@@ -98,6 +132,7 @@ export default function HomeScreen() {
         </ThemedText>
       ))}
       </Collapsible>
+
       <Collapsible title={Monday25thPMRoster.Title}>
       <ThemedText>
       Call Time: <ThemedText type="defaultSemiBold">{Monday25thPMRoster.CallTime}</ThemedText>
@@ -113,11 +148,41 @@ export default function HomeScreen() {
         </ThemedText>
       ))}
       </Collapsible>
+
     </ParallaxScrollView>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
+  modalBackdrop: {
+  flex: 1,
+  backgroundColor: 'rgba(0,0,0,0.55)',
+  justifyContent: 'center',
+  padding: 24,
+},
+
+modalCard: {
+  borderRadius: 20,
+  padding: 24,
+  gap: 16,
+},
+
+input: {
+  borderWidth: 1,
+  borderColor: '#ccc',
+  borderRadius: 12,
+  padding: 14,
+  fontSize: 16,
+  backgroundColor: '#fff',
+},
+
+primaryButton: {
+  padding: 14,
+  borderRadius: 12,
+  alignItems: 'center',
+  backgroundColor: '#ddd',
+},
   titleContainer: {
     flexDirection: 'row',
     alignItems: 'center',
