@@ -6,80 +6,12 @@ import ParallaxScrollView from '@/components/parallax-scroll-view';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Collapsible } from '@/components/ui/collapsible';
+import { events } from '@/data/events';
 
-const Sunday24thAMRoster = {
-  Title: 'Sunday 24th AM',
-  dateTime: new Date('2026-05-24T07:30:00'),
-  CallTime: '7:30am',
-  StartTime: '9:00am',
-  roster: [
-  { role: 'Sound Engineer', name: 'Buddy/Natanya' },
-  { role: 'Lights/Steaming', name: 'Cole' },
-  { role: 'Lyrics/Scripture', name: 'Faith/Tyrone' },
-  { role: 'Switching', name: 'Nel-Mari' },
-  { role: 'Camera 1', name: 'Keagan' },
-  { role: 'Camera 2', name: 'Faith/Xavier' },
-  { role: 'Camera 3', name: 'Luke' },
-  { role: 'Handheld Camera', name: 'Sharmun' }
-],
-}
-
-const Sunday24thPMRoster = {
-  Title: 'Sunday 24th PM',
-  dateTime: new Date('2026-05-24T16:30:00'),
-  CallTime: '4:30pm',
-  StartTime: '6:00pm',
-  roster: [
-  { role: 'Sound Engineer', name: 'Kudzai/Sharmun' },
-  { role: 'Lights/Steaming', name: 'Cole' },
-  { role: 'Lyrics/Scripture', name: 'Sharmun/Faith' },
-  { role: 'Switching', name: 'Sharmun/Cuan' },
-  { role: 'Camera 1', name: 'Keagan' },
-  { role: 'Camera 2', name: '?/Static' },
-  { role: 'Camera 3', name: 'Luke' },
-  { role: 'Handheld Camera', name: 'N/A' }
-],
-}
-
-const Monday25thPMRoster = {
-  Title: 'Monday 25th PM',
-  dateTime: new Date('2026-05-25T18:00:00'),
-  CallTime: '6:00pm',
-  StartTime: '6:30pm',
-  roster: [
-  { role: 'Sound Engineer', name: '?' },
-  { role: 'Lights/Steaming', name: '?' },
-  { role: 'Lyrics/Scripture', name: '?' },
-  { role: 'Switching', name: '?' },
-  { role: 'Camera 1', name: '?' },
-  { role: 'Camera 2', name: '?' },
-  { role: 'Camera 3', name: '?' },
-  { role: 'Handheld Camera', name: 'N/A' }
-],
-}
-
-export default function HomeScreen() {const [volunteerName, setVolunteerName] = useState('');
+export default function HomeScreen() {
+  const [volunteerName, setVolunteerName] = useState('');
   const [draftName, setDraftName] = useState('');
-  const [sunday24AM, setSunday24AM] = useState(Sunday24thAMRoster);
-    const events = [sunday24AM, Sunday24thPMRoster, Monday25thPMRoster];
   const nextEvent = events.find((event) => event.dateTime > new Date());
-  function claimRole(roleName: string) {
-    setSunday24AM({
-      ...sunday24AM,
-      roster: sunday24AM.roster.map((item) => {
-        if (item.role !== roleName) {
-          return item;
-        }
-        if (item.name === volunteerName) {
-          return { ...item, name: '' };
-        }
-        if (!item.name || item.name === '?' || item.name === 'N/A') {
-          return { ...item, name: volunteerName };
-        }
-        return item;
-      }),
-    });
-  }  
   return (
     <>
       <Modal visible={!volunteerName} transparent animationType="fade">
