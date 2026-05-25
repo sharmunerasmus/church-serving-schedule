@@ -29,7 +29,11 @@ export default function TabTwoScreen() {
           Media Serving Schedule
         </ThemedText>
       </ThemedView>
-      {events.map((event) => (
+      {events
+        .filter((event) => event.dateTime > new Date())
+        .sort((a, b) => a.dateTime.getTime() - b.dateTime.getTime())
+        .slice(0, 10)
+        .map((event) => (
         <Collapsible key={event.Title} title={event.Title}>
         <ThemedText>
             Call Time: <ThemedText type="defaultSemiBold">{event.CallTime}</ThemedText>
