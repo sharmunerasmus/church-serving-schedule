@@ -41,19 +41,19 @@ export default function HomeScreen() {
       headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
       headerImage={
         <Image
-          source={require('@/assets/images/Header Media.jpg')}
+          source={require('@/assets/images/Worship-hands.jpg')}
           style={styles.reactLogo}
           contentFit="fill"
         />
       }>
       <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Media Serving Schedule</ThemedText>
+        <ThemedText type="title">Media Team Dashboard</ThemedText>
       </ThemedView>
       <ThemedText>
         Hello <ThemedText type="defaultSemiBold">{volunteerName}</ThemedText>
       </ThemedText>
       <ThemedText> 
-        Below is the schedule for the upcoming services. Please check in with your role lead if you need to swap shifts.
+        Below is the up coming service. Please check in with your role lead if you need to swap shifts.
       </ThemedText>
 
 {nextEvent && (
