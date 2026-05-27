@@ -7,8 +7,6 @@ import { ThemedView } from '@/components/themed-view';
 import { Collapsible } from '@/components/ui/collapsible';
 import { Fonts } from '@/constants/theme';
 import { events } from '@/data/events';
-import { Link } from 'expo-router';
-
 
 export default function TabTwoScreen() {
   return (
@@ -50,11 +48,6 @@ export default function TabTwoScreen() {
           ))}
         </Collapsible>
       ))}
-      <Link href="/Full Schedule">
-      <ThemedText type="defualtSemiBold">
-        Full Month Schedule
-      </ThemedText>
-      </Link>
     </ParallaxScrollView>
   );
 }
