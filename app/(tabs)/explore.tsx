@@ -7,6 +7,7 @@ import { ThemedView } from '@/components/themed-view';
 import { Collapsible } from '@/components/ui/collapsible';
 import { Fonts } from '@/constants/theme';
 import { events } from '@/data/events';
+import { Link } from 'expo-router';
 
 
 export default function TabTwoScreen() {
@@ -32,7 +33,7 @@ export default function TabTwoScreen() {
       {events
         .filter((event) => event.dateTime > new Date())
         .sort((a, b) => a.dateTime.getTime() - b.dateTime.getTime())
-        .slice(0, 10)
+        .slice(0, 5)
         .map((event) => (
         <Collapsible key={event.Title} title={event.Title}>
         <ThemedText>
@@ -49,6 +50,11 @@ export default function TabTwoScreen() {
           ))}
         </Collapsible>
       ))}
+      <Link href="/Full Schedule">
+      <ThemedText type="defualtSemiBold">
+        Full Month Schedule
+      </ThemedText>
+      </Link>
     </ParallaxScrollView>
   );
 }
