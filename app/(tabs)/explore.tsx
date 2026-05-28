@@ -1,32 +1,27 @@
-import { Image } from 'expo-image';
-import { Pressable, StyleSheet } from 'react-native';
+import { Pressable, ScrollView, StyleSheet } from 'react-native';
 
-import ParallaxScrollView from '@/components/parallax-scroll-view';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Collapsible } from '@/components/ui/collapsible';
 import { Fonts } from '@/constants/theme';
 import { events } from '@/data/events';
 import { useState } from 'react';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function TabTwoScreen() {
   const now = new Date();
   const upcomingEvents = events    .filter((event) => event.dateTime > now)
     .sort((a, b) => a.dateTime.getTime() - b.dateTime.getTime())
-    .slice(0, 12);
+    .slice(0, 19);
     const [activeTab, setActiveTab] = useState('services');
     const serviceEvents = upcomingEvents.filter((event) => event.type === 'service');
     const practiceEvents = upcomingEvents.filter((event) => event.type === 'practice');
+    const months= ['May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const [selectedMonth, setSelectedMonth] = useState('May');
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/Header Media.jpg')}
-          style={styles.reactLogo}
-          contentFit="fill"
-        />
-      }>
+    <SafeAreaView style={styles.screen}>
+    <ScrollView>
+
       <ThemedView style={styles.titleContainer}>
         <ThemedText
           type="title"
@@ -37,8 +32,33 @@ export default function TabTwoScreen() {
         </ThemedText>
       </ThemedView>
 
-      <ThemedView style={styles.tabContainer}>
+      <ThemedView style={styles.monthContainer}>
+        <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        style={styles.monthScroll}
+        >
+          {months.map((month) => (
+            <Pressable
+              key={month}
+              onPress={() => setSelectedMonth(month)}
+              style={[
+                styles.monthButton,
+                selectedMonth === month && styles.activeMonthButton,
+              ]}
+              >
+                <ThemedText
+                  type={selectedMonth === month ? 'defaultSemiBold' : 'default'}
+                  >
+                {month}
+              </ThemedText>
+            </Pressable>
+          ))}
+        </ScrollView>
+      </ThemedView>
 
+
+      <ThemedView style={styles.tabContainer}>
         <Pressable onPress={() => setActiveTab('services')}
         style={[
           styles.tabButton,
@@ -127,11 +147,46 @@ export default function TabTwoScreen() {
 {activeTab === 'equipment' && (
   <ThemedText>Equipment events will be displayed here.</ThemedText>
 )}
-    </ParallaxScrollView>
+    </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+monthContainer: {
+  backgroundColor: '#fff',
+  borderRadius: 18,
+  padding: 14,
+  marginTop: 16,
+  marginBottom: 20,
+  shadowColor: '#000',
+  shadowOpacity: 0.08,
+  shadowRadius: 10,
+  elevation: 3,
+},
+
+screen: {
+  flex: 1,
+  padding: 20,
+},
+
+monthScroll: {
+marginTop: 16,
+marginBottom: 20,
+},
+
+monthButton: {
+  paddingVertical: 10,
+  paddingHorizontal: 16,
+  borderRadius: 999,
+  marginRight: 10,
+  backgroundColor: '#eee',
+},
+
+activeMonthButton: {
+  backgroundColor: '#ff0000',
+},
+
 tabContainer: {
   flexDirection: 'row',
   justifyContent:  'space-between' ,
