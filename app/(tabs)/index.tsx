@@ -47,7 +47,7 @@ export default function HomeScreen() {
         />
       }>
       <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Media Team Dashboard</ThemedText>
+        <ThemedText type="title">Media Team Home</ThemedText>
       </ThemedView>
       <ThemedText>
         Hello <ThemedText type="defaultSemiBold">{volunteerName}</ThemedText>
