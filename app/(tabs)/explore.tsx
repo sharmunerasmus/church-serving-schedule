@@ -11,10 +11,12 @@ import { useState } from 'react';
 
 export default function TabTwoScreen() {
   const now = new Date();
-  const upcomingservices = events    .filter((event) => event.dateTime > now)
+  const upcomingEvents = events    .filter((event) => event.dateTime > now)
     .sort((a, b) => a.dateTime.getTime() - b.dateTime.getTime())
     .slice(0, 12);
     const [activeTab, setActiveTab] = useState('services');
+    const serviceEvents = upcomingEvents.filter((event) => event.type === 'service');
+    const practiceEvents = upcomingEvents.filter((event) => event.type === 'practice');
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
@@ -68,9 +70,9 @@ export default function TabTwoScreen() {
         </Pressable>
       </ThemedView>
 
-
-
-{upcomingservices.map((event) => (
+{activeTab === 'services' && (
+  <>
+{serviceEvents.map((event) => (
   <ThemedView key={event.Title} style={styles.eventCard}>
     <Collapsible title={event.Title}>
       <ThemedText>
@@ -92,6 +94,39 @@ export default function TabTwoScreen() {
     </Collapsible>
   </ThemedView>
 ))}
+</>
+)}
+
+{activeTab === 'practices' && (
+  <>
+{practiceEvents.map((event) => (
+  <ThemedView key={event.Title} style={styles.eventCard}>
+    <Collapsible title={event.Title}>
+      <ThemedText>
+        Call Time: <ThemedText type="defaultSemiBold">{event.CallTime}</ThemedText>
+      </ThemedText>
+      
+      <ThemedText>
+        Start Time: <ThemedText type="defaultSemiBold">{event.StartTime}</ThemedText>
+      </ThemedText>
+
+      {event.roster.map((item) => (
+        <ThemedText key={item.role}>
+          {item.role}:{' '}
+          <ThemedText type="defaultSemiBold">
+            {item.name || 'Open'}
+          </ThemedText>
+        </ThemedText>
+      ))}
+    </Collapsible>
+  </ThemedView>
+))}
+</>
+)}
+
+{activeTab === 'equipment' && (
+  <ThemedText>Equipment events will be displayed here.</ThemedText>
+)}
     </ParallaxScrollView>
   );
 }

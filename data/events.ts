@@ -56,6 +56,7 @@ export const Thursday4thJunePMRoster = {
   Title: 'Thursday 4th June PM',
   type: 'practice',
   dateTime: new Date('2026-06-04T18:30:00'),
+  CallTime: '6:30pm',
   StartTime: '6:30pm',
   roster: [
   { role: 'Sound Engineer', name: '?' },
@@ -127,6 +128,7 @@ export const Thursday11thJunePMRoster = {
   Title: 'Thursday 11th June PM',
   type: 'practice',
   dateTime: new Date('2026-06-11T18:30:00'),
+  CallTime: '6:30pm',
   StartTime: '6:30pm',
   roster: [
   { role: 'Sound Engineer', name: '?' },
@@ -198,6 +200,7 @@ export const Thursday18thJunePMRoster = {
   Title: 'Thursday 18th June PM',
   type: 'practice',
   dateTime: new Date('2026-06-18T18:30:00'),
+  CallTime: '6:30pm',
   StartTime: '6:30pm',
   roster: [
   { role: 'Sound Engineer', name: '?' },
@@ -269,6 +272,7 @@ export const Thursday25thJunePMRoster = {
   Title: 'Thursday 25th June PM',
   type: 'practice',
   dateTime: new Date('2026-06-25T18:30:00'),
+  CallTime: '6:30pm',
   StartTime: '6:30pm',
   roster: [
   { role: 'Sound Engineer', name: '?' },
