@@ -20,7 +20,8 @@ export default function TabTwoScreen() {
     const [selectedMonth, setSelectedMonth] = useState('May');
   return (
     <SafeAreaView style={styles.screen}>
-    <ScrollView>
+    <ScrollView contentContainerStyle={styles.content}>
+      
 
       <ThemedView style={styles.titleContainer}>
         <ThemedText
@@ -58,6 +59,7 @@ export default function TabTwoScreen() {
       </ThemedView>
 
 
+      <ThemedView style={styles.tabCard}>
       <ThemedView style={styles.tabContainer}>
         <Pressable onPress={() => setActiveTab('services')}
         style={[
@@ -88,6 +90,7 @@ export default function TabTwoScreen() {
             Equipment
           </ThemedText>
         </Pressable>
+      </ThemedView>
       </ThemedView>
 
 {activeTab === 'services' && (
@@ -167,6 +170,10 @@ monthContainer: {
 
 screen: {
   flex: 1,
+  backgroundColor: '#fff',
+},
+
+content: {
   padding: 20,
 },
 
@@ -185,6 +192,17 @@ monthButton: {
 
 activeMonthButton: {
   backgroundColor: '#ff0000',
+},
+
+tabCard: {
+  backgroundColor: '#fff',
+  borderRadius: 18,
+  padding: 14,
+  marginBottom: 20,
+  shadowColor: '#000',
+  shadowOpacity: 0.08,
+  shadowRadius: 10,
+  elevation: 3,
 },
 
 tabContainer: {
